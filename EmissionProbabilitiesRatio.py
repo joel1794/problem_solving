@@ -45,16 +45,18 @@ match_state_count = 0
 print("Match state and insert state emission probabilities are as follows")
 elements_in_insert_state = 0
 
+print("I", match_state_count)
 for element in distinct_elements:
     emission_probability[element] = 0
 for element in emission_probability:
     emission_probability[element] = 1 / distinct_elements_count
-
-print("I", match_state_count, emission_probability)
+    print(element, ":", 1, "/", distinct_elements_count, ", ")
 
 for i in range(len(msa[0])):
     if i in match_indexes:
         elements_in_match_state = 0
+        match_state_count += 1
+        print("M", match_state_count)
         for element in distinct_elements:
             emission_probability[element] = 0
         for j in range(len(msa)):
@@ -62,11 +64,11 @@ for i in range(len(msa[0])):
                 emission_probability[msa[j][i]] += 1
                 elements_in_match_state += 1
         for element in emission_probability:
-            emission_probability[element] = (emission_probability[element] + 1) / (elements_in_match_state + distinct_elements_count)
-        match_state_count += 1
-        print("M", match_state_count, emission_probability)
+            ratio = (emission_probability[element] + 1) / (elements_in_match_state + distinct_elements_count)
+            print(element, ":", (emission_probability[element] + 1), "/", (elements_in_match_state + distinct_elements_count), ", ")
 
     if i in insert_indexes:
+        print("I", match_state_count)
         elements_in_insert_state = 0
         for element in distinct_elements:
             emission_probability[element] = 0
@@ -75,12 +77,13 @@ for i in range(len(msa[0])):
                 emission_probability[msa[j][i]] += 1
                 elements_in_insert_state += 1
         for element in emission_probability:
-            emission_probability[element] = (emission_probability[element] + 1) / (elements_in_insert_state + distinct_elements_count)
-        print("I", match_state_count, emission_probability)
+            ratio = (emission_probability[element] + 1) / (elements_in_insert_state + distinct_elements_count)
+            print(element, ":", (emission_probability[element] + 1), "/", elements_in_insert_state + distinct_elements_count, ", ")
     elif i + 1 not in insert_indexes:
+        print("I", match_state_count)
         for element in distinct_elements:
             emission_probability[element] = 0
         for element in emission_probability:
             emission_probability[element] = 1 / distinct_elements_count
-        print("I", match_state_count, emission_probability)
+            print(element, ":", 1, "/", distinct_elements_count, ", ")
 
