@@ -40,3 +40,4 @@ print((4.0833 + 1.2364)/variance_projection)
 print((4.0833 + 1.2364 + 0.7428)/variance_projection)
 
 # sum(l)/ sum(k) where l is most dominant eigenvalues and k is non trivial eigenvalues
+
