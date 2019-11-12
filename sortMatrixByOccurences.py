@@ -7,7 +7,8 @@ def sortMatrixByOccurences(m):
             occurence_dict[m[i][j]] += 1
     # sorted(occurence_dict)
     # print(occurence_dict)
-    sorted_occurence = sorted(occurence_dict.items(), key=lambda x: (-x[1], x[0]))
+    sorted_occurence = sorted(occurence_dict.items(), key=lambda x: (-x[1], -x[0]))
+    print(sorted_occurence)
     new_sorted_occurence = []
     for element in sorted_occurence:
         for count in range(element[1]):
@@ -32,7 +33,7 @@ def sortMatrixByOccurences(m):
         count = min(line, (COL - start_col), ROW)
 
         for j in range(0, count):
-            new_matrix[min(ROW, line) - j - 1][start_col + j] = new_sorted_occurence[list_index]
+            new_matrix[start_col + j][min(ROW, line) - j - 1] = new_sorted_occurence[list_index]
             list_index += 1
 
 
